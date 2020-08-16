@@ -16,18 +16,20 @@ const styles = StyleSheet.create({
 
 export default ({ navigation }) => {
 	const userId = navigation.getParam('user_id')
-	const [loading, setLoading] = useState(true)
-
 	const [posts, setPosts] = useState([])
 	const filterPosts = (posts, userId) => posts.filter(post => post.userId === userId)
 	const userPosts = useMemo(() => filterPosts(posts, userId), [posts, userId])
 
-
+	const [loading, setLoading] = useState(true)
 	const fetchPosts = async () => {
 		const response = await fetch('https://jsonplaceholder.typicode.com/posts')
 		const data = await response.json()
 		setPosts(data)
 		setLoading(false)
+	}
+
+	const navigateToPostDetail = (post) => {
+		navigation.navigate('PostDetail', { title: post.title, body: post.body })
 	}
 
 	useEffect(() => { fetchPosts() }, [])
@@ -43,7 +45,7 @@ export default ({ navigation }) => {
 							renderItem={({ item }) =>
 								<ListItem
 									title={item.title}
-									handlePress={() => {}}
+									handlePress={() => {navigateToPostDetail(item)}}
 								/>
 							}
 							style={styles.list}
