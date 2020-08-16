@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
 
 const styles = StyleSheet.create({
 	container: {
@@ -18,16 +19,10 @@ const styles = StyleSheet.create({
 	title: {
 		fontSize: 35,
 		color: 'white',
-		textShadowColor: '#7E8D85',
-		textShadowOffset: {width: 1, height: 1},
-		textShadowRadius: 2
 	},
 	bodyContainer: {
 		paddingHorizontal: 25,
-		paddingVertical: 20,
-		alignSelf: 'stretch',
-		flexDirection: 'row',
-		flexGrow: 1,
+		paddingVertical: 20
 	},
 	body: {
 		fontSize: 18,
@@ -57,9 +52,9 @@ const Author = ({ userName }) => (
 )
 
 const Body = ({ body }) => (
-	<View style={styles.bodyContainer}>
+	<ScrollView style={styles.bodyContainer}>
 		<Text style={styles.body}>{body}</Text>
-	</View>
+	</ScrollView>
 )
 
 export default ({ navigation }) => {
