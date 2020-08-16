@@ -25,7 +25,7 @@ export default ({ navigation }) => {
 		setLoading(false)
 	}
 	const navigateToPosts = (user) => {
-		navigation.navigate('Posts', { user_id: user.id })
+		navigation.navigate('Posts', { user_id: user.id, user_name: user.name })
 	}
 
 	useEffect(() => { fetchUsers() }, [])

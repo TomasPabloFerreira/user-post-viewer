@@ -16,6 +16,7 @@ const styles = StyleSheet.create({
 
 export default ({ navigation }) => {
 	const userId = navigation.getParam('user_id')
+	const userName = navigation.getParam('user_name')
 	const [posts, setPosts] = useState([])
 	const filterPosts = (posts, userId) => posts.filter(post => post.userId === userId)
 	const userPosts = useMemo(() => filterPosts(posts, userId), [posts, userId])
@@ -29,7 +30,16 @@ export default ({ navigation }) => {
 	}
 
 	const navigateToPostDetail = (post) => {
-		navigation.navigate('PostDetail', { title: post.title, body: post.body })
+		navigation.navigate('PostDetail', {
+			post: {
+				title: post.title,
+				body: post.body
+			},
+			user: {
+				id: userId,
+				name: userName
+			}
+		})
 	}
 
 	useEffect(() => { fetchPosts() }, [])

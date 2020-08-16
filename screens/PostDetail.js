@@ -10,10 +10,12 @@ const styles = StyleSheet.create({
 	},
 })
 
-export default () => {
+export default ({ navigation }) => {
+	const post = navigation.getParam('post')
+	const user = navigation.getParam('user')
+
 	return (
 		<View style={styles.container}>
-			<Text>Open up App.js to start working on your app!</Text>
 		</View>
 	)
 }
