@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 
 const styles = StyleSheet.create({
 	container: {
@@ -15,10 +15,10 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default ({ title }) => {
+export default ({ title, handlePress }) => {
 	return (
-		<View style={styles.container}>
+		<TouchableOpacity onPress={handlePress} style={styles.container}>
 			<Text style={styles.text}>{title}</Text>
-		</View>
+		</TouchableOpacity>
 	)
 }

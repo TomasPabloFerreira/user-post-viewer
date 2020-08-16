@@ -14,15 +14,7 @@ const styles = StyleSheet.create({
 	}
 })
 
-const renderUser = ({ item }) => {
-	return (
-		<ListItem
-			title={item.name}
-		/>
-	)
-}
-
-export default () => {
+export default ({ navigation }) => {
 	const [loading, setLoading] = useState(true)
 	const [users, setUsers] = useState([])
 
@@ -31,6 +23,9 @@ export default () => {
 		const data = await response.json()
 		setUsers(data)
 		setLoading(false)
+	}
+	const navigateToPosts = (user) => {
+		navigation.navigate('Posts', { user_id: user.id })
 	}
 
 	useEffect(() => { fetchUsers() }, [])
@@ -43,7 +38,12 @@ export default () => {
 					:	<FlatList
 							data={users}
 							keyExtractor={x => String(x.id)}
-							renderItem={renderUser}
+							renderItem={({ item }) =>
+								<ListItem
+									title={item.name}
+									handlePress={() => navigateToPosts(item)}
+								/>
+							}
 							style={styles.list}
 						/>
 			}
