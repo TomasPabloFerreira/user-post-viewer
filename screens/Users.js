@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Text, FlatList } from 'react-native'
-import { ListItem } from '../components/index'
+import { ListItem, Loading } from '../components/index'
 
 const styles = StyleSheet.create({
 	container: {
@@ -34,7 +34,7 @@ export default ({ navigation }) => {
 		<View style={styles.container}>
 			{
 				loading
-					?	<Text>Loading...</Text>
+					?	<Loading />
 					:	<FlatList
 							data={users}
 							keyExtractor={x => String(x.id)}
