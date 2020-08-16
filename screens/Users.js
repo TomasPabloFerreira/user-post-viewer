@@ -1,5 +1,5 @@
-import React from 'react'
-import { StyleSheet, View, FlatList } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { StyleSheet, View, Text, FlatList } from 'react-native'
 import { ListItem } from '../components/index'
 
 const styles = StyleSheet.create({
@@ -14,18 +14,6 @@ const styles = StyleSheet.create({
 	}
 })
 
-const users = [
-	{ id: '1', name: 'Pepito' },
-	{ id: '2', name: 'Juansin' },
-	{ id: '3', name: 'Juansin' },
-	{ id: '4', name: 'Juansin' },
-	{ id: '5', name: 'Juansin' },
-	{ id: '6', name: 'Juansin' },
-	{ id: '7', name: 'Juansin' },
-	{ id: '8', name: 'Juansin' },
-	{ id: '9', name: 'Juansin' },
-]
-
 const renderUser = ({ item }) => {
 	return (
 		<ListItem
@@ -35,14 +23,30 @@ const renderUser = ({ item }) => {
 }
 
 export default () => {
+	const [loading, setLoading] = useState(true)
+	const [users, setUsers] = useState([])
+
+	const fetchUsers = async () => {
+		const response = await fetch('https://jsonplaceholder.typicode.com/users')
+		const data = await response.json()
+		setUsers(data)
+		setLoading(false)
+	}
+
+	useEffect(() => { fetchUsers() }, [])
+
 	return (
 		<View style={styles.container}>
-			<FlatList
-				data={users}
-				keyExtractor={x => x.id}
-				renderItem={renderUser}
-				style={styles.list}
-			/>
+			{
+				loading
+					?	<Text>Loading...</Text>
+					:	<FlatList
+							data={users}
+							keyExtractor={x => String(x.id)}
+							renderItem={renderUser}
+							style={styles.list}
+						/>
+			}
 		</View>
 	)
 }
